@@ -10,7 +10,7 @@ import random
 from django.contrib.auth.models import User
 
 from reminder.models import FDAccountDetail, Interest
-from reminder.serializers import FDSerializer
+from reminder.serializers import FDSerializer, InterestSerializer
 from reminder.tasks import calculate_interest, send_interest_reminder, update_interest
 
 
@@ -115,6 +115,8 @@ class FixedDepositViewSet(viewsets.ModelViewSet):
         user = request.user
         fd_instance = FDAccountDetail.objects.get(pk=pk)
 
+        print(request.data)
+
         if user == fd_instance.user:            
             serializer = FDSerializer(fd_instance, request.data, partial=True)
 
@@ -149,6 +151,7 @@ class FixedDepositViewSet(viewsets.ModelViewSet):
 
 
 class InterestViewSet(viewsets.ModelViewSet):
+    serializer_class = InterestSerializer
     
     def list(self, request):
         user = request.user

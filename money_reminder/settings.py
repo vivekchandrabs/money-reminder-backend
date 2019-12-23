@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     "reminder",
     "djcelery",
+    'corsheaders',
+    # "channels",
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 
@@ -75,7 +79,9 @@ TEMPLATES = [
     },
 ]
 
+# ASGI_APPLICATION = 'money_reminder.asgi.application'
 WSGI_APPLICATION = 'money_reminder.wsgi.application'
+
 
 
 # Database
@@ -100,6 +106,15 @@ BROKER_TRANSPORT = 'redis'
 CELERY_TIMEZONE = 'Asia/Kolkata'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'asgi_redis.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [('localhost', 6379)],
+#         },
+#         'ROUTING': 'example_channels.routing.channel_routing',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -138,3 +153,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CORS_ORIGIN_ALLOW_ALL = True

@@ -36,5 +36,5 @@ class InterestSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Interest
-        fields = "__all__"
+        fields = ("id", "interest_amt", "month", "is_sent")
         depth = 1
